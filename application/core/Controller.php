@@ -2,18 +2,35 @@
 
 namespace Gregor\Core;
 
-
+/**
+ * Is used for managing and initializing objects and methods.
+ */
 class Controller
 {
+    /** @var string $controllerNamespace Default base namespace */
     protected $controllerNamespace = '\Gregor\Controllers';
+    /** @var string $controller Default controller if none is specified */
     protected $controller          = 'Index';
+    /** @var string $method Default method if none is specified */
     protected $method              = 'index';
+    /** @var null $queryParameter Query parameters is set to null */
     protected $queryParameter      = null;
 
     public function __construct()
     {
         $namespace  = $this->getAction($_SERVER['REQUEST_URI']);
+
+        if(!class_exists($namespace)) {
+            require_once VIEWS . DS . 'errors' . DS . 'not-found' . '.php';
+            return 0;
+        }
+
         $controller = new $namespace();
+
+        if(!method_exists($controller, $this->getMethod())) {
+            require_once VIEWS . DS . 'errors' . DS . 'not-found' . '.php';
+            return 0;
+        }
 
         if($this->getParam() != null) {
             $controller->{$this->getMethod()}($this->getParam());        
@@ -22,6 +39,12 @@ class Controller
         }
     }
 
+    /**
+     * Creates the namespace from the provided url.
+     * 
+     * @param string $url 
+     * @return string $namespace
+     */
     protected function getAction(string $url) : string
     {
         // array_filter returns value if the inner function returns true
