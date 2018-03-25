@@ -1,0 +1,16 @@
+{
+    "name": "gregor/custom_mvc",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Gregor Novak",
+            "email": "grega_novak@yahoo.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Gregor\\": "application/"
+        }
+    }
+}
