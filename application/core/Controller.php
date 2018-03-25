@@ -52,7 +52,7 @@ class Controller
         // to unset values with empty strings example: string ""
         
         $exploded = array_values(array_filter(explode('/', $url)));
-
+        
         if(!empty($exploded[0]) && isset($exploded[0])) {
             $this->setController(ucfirst($exploded[0]));
         }

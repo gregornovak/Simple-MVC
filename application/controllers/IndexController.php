@@ -3,6 +3,7 @@
 namespace Gregor\Controllers;
 
 use Gregor\Core\Controller;
+use Gregor\Core\View;
 
 
 class IndexController extends Controller
@@ -14,14 +15,12 @@ class IndexController extends Controller
 
     public function test()
     {
-        echo PHP_EOL . 'Test function ran :DDDDDDD' . PHP_EOL;
+        return new View('index.test', [1,2,3]);
     }
 
     public function index()
     {
-        // var_dump($this->getController());
-        require_once VIEWS . DS . lcfirst($this->getController()) . DS . $this->getMethod() . '.php';
-        // echo PHP_EOL . 'Index function ran :DDDDDDD' . PHP_EOL;
+        return new View('index.index');
     }
 
     public function edit(int $post)
