@@ -7,7 +7,9 @@
             "email": "grega_novak@yahoo.com"
         }
     ],
-    "require": {},
+    "require": {
+        "twig/twig": "^2.4"
+    },
     "autoload": {
         "psr-4": {
             "Gregor\\": "application/"

@@ -15,12 +15,12 @@ class IndexController extends Controller
 
     public function test()
     {
-        return new View('index.test', [1,2,3]);
+        return new View('index.test', ['nums' => [1,2,3,4,5,6,7,8,9,10]]);
     }
 
     public function index()
     {
-        return new View('index.index');
+        return new View('index.index', ['a' => 'A']);
     }
 
     public function edit(int $post)

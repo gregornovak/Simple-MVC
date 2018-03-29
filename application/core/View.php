@@ -8,7 +8,9 @@ namespace Gregor\Core;
 class View
 {
     /** @var string The path to the views  folder */
-    private $view = VIEWS . DS;
+    private $view = '';
+    private $loader = null;
+    private $twig = null;
 
     /**
      * Return the appropriate view or return an exception if it is not found
@@ -22,13 +24,12 @@ class View
         $directory = $exploded[0];
         $file      = $exploded[1];
 
-        $this->view .= lcfirst($directory) . DS . $file . '.php';
-        if(!file_exists($this->view)) {
-            throw new \Exception("The view with this controller and method does not exist!");
-        }
+        $this->view .= lcfirst($directory) . DS . $file . '.html.twig';
+        
+        $this->loader = new \Twig_Loader_Filesystem(VIEWS);
+        $this->twig = new \Twig_Environment($this->loader);
+        $data['year'] = date('Y');
 
-        // $data = $data;
-
-        require_once $this->view;
+        echo $this->twig->render($this->view, $data);
     }
 }

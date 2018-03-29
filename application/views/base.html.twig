@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head>
+       <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        {% block head %}
+            <link rel="stylesheet" href="style.css" />
+            <title>{% block title %}{% endblock %} - My Webpage</title>
+        {% endblock %}
+    </head>
+    <body>
+        <div id="nav">
+            <a href="/users/index">All users</a>
+        </div>
+        <div id="content">{% block content %}{% endblock %}</div>
+        <div id="footer">
+            {% block footer %}
+                &copy; Copyright {{ year }} by <a href="https://github.com/gregornovak">Gregor</a>.
+            {% endblock %}
+        </div>
+    </body>
+</html>

@@ -1,0 +1,15 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Index{% endblock %}
+{% block head %}
+    {{ parent() }}
+{% endblock %}
+{% block content %}
+   <h3>This is a test page</h3>
+   <p>Custom data passed through controller</p>
+   <ul>
+    {% for i in nums %}
+        <li>{{ i }}</li>
+    {% endfor %}
+    </ul>
+{% endblock %}
