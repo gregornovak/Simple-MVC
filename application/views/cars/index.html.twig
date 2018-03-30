@@ -1,0 +1,22 @@
+{% extends "base.html.twig" %}
+
+{% block title %}All cars{% endblock %}
+{% block head %}
+    {{ parent() }}
+{% endblock %}
+{% block content %}
+    <h1>Index</h1>
+    <p class="important">
+        Welcome to my awesome homepage.
+    </p>
+    {% for i in range(0, 3) %}
+        {{ i }},
+    {% endfor %}
+    
+    <h3>All cars</h3>
+    <ul>
+        {% for car in cars %}
+            <li><a href="/cars/show/{{ car.id }}">{{ car.name }}</a> was made {{ car.make_year|date("d.m.Y") }} by {{ car.manufacturer}}.</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends "base.html.twig" %}
+
+{% block title %}This car{% endblock %}
+{% block head %}
+    {{ parent() }}
+{% endblock %}
+{% block content %}
+    <h1>Car details</h1><button><a href="/cars/index">Go back</a></button>
+    <p>Manufacturer: {{ car.manufacturer }}</p>
+    <p>Name: {{ car.name }}</p>
+    <p>Date: {{ car.make_year|date("Y") }}</p>
+{% endblock %}

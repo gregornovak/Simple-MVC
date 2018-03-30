@@ -1,6 +1,6 @@
 {% extends "base.html.twig" %}
 
-{% block title %}Index test{% endblock %}
+{% block title %}Index{% endblock %}
 {% block head %}
     {{ parent() }}
 {% endblock %}
@@ -12,4 +12,8 @@
         <li>{{ i }}</li>
     {% endfor %}
     </ul>
+    {{ js }}
+    {% autoescape %}
+        {{ js|raw }} {# var won't be escaped #}
+    {% endautoescape %}
 {% endblock %}

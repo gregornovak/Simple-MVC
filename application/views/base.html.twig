@@ -6,12 +6,16 @@
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         {% block head %}
             <link rel="stylesheet" href="style.css" />
-            <title>{% block title %}{% endblock %} - My Webpage</title>
+            <title>{% block title %}{% endblock %}</title>
         {% endblock %}
     </head>
     <body>
         <div id="nav">
+            <a href="/">Home</a>
+            <a href="/index/test">Test</a>
             <a href="/users/index">All users</a>
+            <a href="/cars/index">All Cars</a>
+            <a href="/cars/add">Add a car</a>            
         </div>
         <div id="content">{% block content %}{% endblock %}</div>
         <div id="footer">

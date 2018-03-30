@@ -1,0 +1,26 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Add a car{% endblock %}
+{% block head %}
+    {{ parent() }}
+{% endblock %}
+{% block content %}
+    <h1>Add a new car</h1>
+    <form action="/cars/insert" name="addcar" enctype="application/x-www-form-urlencoded" method="post">
+        <div>
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name">
+        </div>
+        <div>
+            <label for="manufacturer">Manufacturer:</label>
+            <input type="text" id="manufacturer" name="manufacturer">
+        </div>
+        <div>
+            <label for="make_year">Make year:</label>
+            <input type="date" id="makeyear" name="makeyear">
+        </div>
+        <div>
+            <input type="submit" value="Submit">
+        </div>
+    </form>
+{% endblock %}
