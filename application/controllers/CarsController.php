@@ -31,11 +31,11 @@ class CarsController extends Controller
 
     public function show(int $id) : View
     {
-        var_dump($id);
+        // var_dump($id);
         $car = new CarsModel();
-        $id  = $this->request->get($id);
-        var_dump($id);
-        die($id);
+        // $id  = $this->request->get($id);
+        // var_dump($id);
+        // die($id);
         $car = $car->show($id);
         
         return new View('cars.show', ['car' => $car]);
@@ -48,14 +48,22 @@ class CarsController extends Controller
 
     public function insert()
     {
-        // var_dump( file_get_contents('php://input'));
-        var_dump($_POST['name']);
-        var_dump($this->request->post('name'));
-        die;
-        $car = new CarsModel();
-        $car = $car->insert([
+        $name           = $this->request->post('name');
+        $manufacturer   = $this->request->post('manufacturer');
+        $makeYear       = $this->request->post('makeyear');
 
+        $car = new CarsModel();
+        $inserted = $car->insert([
+            'name'          => $name,
+            'manufacturer'  => $manufacturer,
+            'make_year'     => $makeYear
         ]);
+
+        if(!$inserted) {
+            echo 'Error inserting data';     
+        }
+
+        header("Location: /cars"); die;
     }
 
     public function edit(int $post) : void

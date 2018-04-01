@@ -2,53 +2,29 @@
 
 namespace Gregor\Core;
 
-use Gregor\Core\Error;
-
-
-/**
- * Is used for managing and initializing objects and methods.
- */
-abstract class Controller
+class Router
 {
     /** @var string $controllerNamespace Default base namespace */
-    // protected $controllerNamespace = '\Gregor\Controllers';
+    protected $controllerNamespace = '\Gregor\Controllers';
     /** @var string $controller Default controller if none is specified */
-    // protected $controller          = 'Index';
+    protected $controller          = 'Index';
     /** @var string $method Default method if none is specified */
-    // protected $method              = 'index';
+    protected $method              = 'index';
     /** @var null $queryParameter Query parameters is set to null */
-    // protected $queryParameter      = null;
-    /** @var null $db Instance of the database */
-    // protected $db = null;
+    protected $queryParameter      = null;
 
     public function __construct()
     {
-        // $namespace = $this->getAction($_SERVER['REQUEST_URI']);
-        
-        // if(!class_exists($namespace)) {
-        //     return new Error('errors.not-found', 'This class does not exist!');
-        // }
-
-        // $controller = new $namespace();
-        
-        // if(!method_exists($controller, $this->getMethod())) {
-        //     $class = $this->getController() . 'Controller';
-        //     return new Error('errors.not-found', "This method in class $class does not exist!");
-        // }
-        
-        // if($this->getParam() != null) {
-        //     $controller->{$this->getMethod()}($this->getParam());        
-        // } else {
-        //     $controller->{$this->getMethod()}();
-        // }
+        $url = filter_var($_SERVER['REQUEST_URI'], FILTER_SANITIZE_URL);
+        $this->dispatch($url);
     }
 
     /**
      * Creates the namespace from the provided url.
-     * 
-     * @param string $url 
-     * @return string $namespace
-     */
+    * 
+    * @param string $url 
+    * @return string $namespace
+    */
     protected function getAction(string $url) : string
     {
         // array_filter returns value if the inner function returns true
@@ -72,6 +48,28 @@ abstract class Controller
         $namespace = "{$this->getControllersNamespace()}\\{$this->getController()}Controller";
 
         return $namespace;
+    }
+
+    protected function dispatch(string $url)
+    {
+        $namespace = $this->getAction($url);
+        
+        if(!class_exists($namespace)) {
+            return new Error('errors.not-found', 'This class does not exist!');
+        }
+
+        $controller = new $namespace();
+        
+        if(!method_exists($controller, $this->getMethod())) {
+            $class = $this->getController() . 'Controller';
+            return new Error('errors.not-found', "This method in class $class does not exist!");
+        }
+        
+        if($this->getParam() != null) {
+            $controller->{$this->getMethod()}($this->getParam());        
+        } else {
+            $controller->{$this->getMethod()}();
+        }
     }
 
     public function getController() : string
@@ -113,5 +111,4 @@ abstract class Controller
     {
         return $this->getController();
     }
-
 }

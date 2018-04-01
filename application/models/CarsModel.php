@@ -30,9 +30,13 @@ class CarsModel extends Model
 
     public function insert(array $fields)
     {
-        foreach($fields as $field) {
-            
-        }
+        $stmt = $this->db->prepare('INSERT INTO cars(name, manufacturer, make_year) VALUES(:name, :manufacturer, :make_year)');
+        $stmt->bindParam(':name', $fields['name']);
+        $stmt->bindParam(':manufacturer', $fields['manufacturer']);
+        $stmt->bindParam(':make_year', $fields['make_year']);
+        $result = $stmt->execute();
+        
+        return $result;
     }
 
 }

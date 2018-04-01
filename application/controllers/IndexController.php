@@ -8,11 +8,6 @@ use Gregor\Core\View;
 
 class IndexController extends Controller 
 {
-    public function __construct()
-    {
-        // echo PHP_EOL . 'IndexController launched' . PHP_EOL;
-    }
-
     public function index() : View
     {
         return new View('index.index');

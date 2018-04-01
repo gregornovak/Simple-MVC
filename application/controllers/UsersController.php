@@ -8,11 +8,7 @@ use Gregor\Core\View;
 
 class UsersController extends Controller 
 {
-    public function __construct()
-    {
-        // echo PHP_EOL . 'IndexController launched' . PHP_EOL;
-    }
-
+    
     public function index() : View
     {
         $users = [

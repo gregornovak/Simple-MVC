@@ -2,12 +2,12 @@
 
 namespace Gregor\Core;
 
-use Gregor\Core\Controller;
+use Gregor\Core\Router;
 
 class Application
 {
     public function __construct()
     {
-        new Controller();
+        new Router();
     }
 }
