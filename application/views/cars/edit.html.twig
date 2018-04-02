@@ -1,0 +1,26 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Edit this car{% endblock %}
+
+{% block content %}
+    <h1>Car details</h1>
+    <button><a href="/cars/index">Go back</a></button>
+    <form action="/cars/update/{{ car.id }}" name="edit_car" method="POST">
+        <div>
+            <label for="manufacturer">Manufacturer</label>
+            <input type="text" id="manufacturer" name="manufacturer" value="{{ car.manufacturer }}">
+        </div>
+        <div>
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" value="{{ car.name }}">
+        </div>
+        <div>
+            <label for="date">Date made</label>
+            <input type="date" id="make_year" name="make_year" value="{{ car.make_year|date('Y-m-d') }}">
+        </div>
+        <div>
+            <input type="submit" value="Submit">
+        </div>
+    </form>
+    
+{% endblock %}

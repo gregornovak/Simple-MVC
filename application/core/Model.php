@@ -20,6 +20,15 @@ class Model extends Database
         $this->db = Database::getInstance();
     }
 
+    /**
+     * Return all results.
+     * 
+     * @param string $table Specify the table name
+     * @param array $fields Desired return fields
+     * @param string $where Specify additional where statement
+     * 
+     * @return array $result
+     */
     protected function getAll(string $table, array $fields = ['*'], string $where = '')
     {
         $sql = "SELECT ";
@@ -42,6 +51,16 @@ class Model extends Database
         return $result;
     }
 
+
+    /**
+     * Return single a result.
+     * 
+     * @param string $table Specify the table name
+     * @param string $where Specify additional where statement
+     * @param array $fields Desired return fields 
+     * 
+     * @return array $result
+     */
     protected function getOne(string $table, string $id, array $fields = ['*'])
     {
         $sql = "SELECT ";

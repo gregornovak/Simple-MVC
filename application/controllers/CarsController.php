@@ -38,7 +38,7 @@ class CarsController extends Controller
         return new View('cars.show', ['car' => $car]);
     }
 
-    public function add()
+    public function add() : View
     {
         return new View('cars.add');
     }
@@ -63,8 +63,34 @@ class CarsController extends Controller
         header("Location: /cars"); die;
     }
 
-    public function edit(int $post) : void
+    public function edit(int $id)
     {
-        echo PHP_EOL . "Editing post number: $post" . PHP_EOL;
+        $car = new CarsModel();
+        $id  = $this->request->sanitize($id);
+        $car = $car->show($id);
+
+        return new View('cars.edit', ['car' => $car]);
+    }
+
+    public function update(int $id)
+    {
+        $id             = $this->request->sanitize($id);
+        $name           = $this->request->post('name');
+        $manufacturer   = $this->request->post('manufacturer');
+        $makeYear       = $this->request->post('make_year');
+
+        $car = new CarsModel();
+        $inserted = $car->update([
+            'name'          => $name,
+            'manufacturer'  => $manufacturer,
+            'make_year'     => $makeYear
+        ],
+        $id);
+
+        if(!$inserted) {
+            echo 'Error updating data';     
+        }
+
+        header("Location: /cars"); die;
     }
 }

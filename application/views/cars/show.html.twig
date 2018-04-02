@@ -5,7 +5,11 @@
     {{ parent() }}
 {% endblock %}
 {% block content %}
-    <h1>Car details</h1><button><a href="/cars/index">Go back</a></button>
+    <h1>Car details</h1>
+    <button><a href="/cars/index">Go back</a></button>
+    <br>
+    <br>
+    <button><a href="/cars/edit/{{ car.id }}">Edit this car</a></button>
     <p>Manufacturer: {{ car.manufacturer }}</p>
     <p>Name: {{ car.name }}</p>
     <p>Date: {{ car.make_year|date("Y") }}</p>
