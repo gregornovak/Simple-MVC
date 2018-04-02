@@ -31,11 +31,7 @@ class CarsController extends Controller
 
     public function show(int $id) : View
     {
-        // var_dump($id);
         $car = new CarsModel();
-        // $id  = $this->request->get($id);
-        // var_dump($id);
-        // die($id);
         $car = $car->show($id);
         
         return new View('cars.show', ['car' => $car]);

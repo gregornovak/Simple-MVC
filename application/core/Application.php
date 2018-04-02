@@ -8,6 +8,7 @@ class Application
 {
     public function __construct()
     {
+        // new \Gregor\Core\Database();
         new Router();
     }
 }

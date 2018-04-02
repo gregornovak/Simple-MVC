@@ -2,16 +2,13 @@
 
 namespace Gregor\Core;
 
-use PDO;
+use Gregor\Core\Database;
 
 /**
  * Responsible for connecting to the database.
  */
-class Model extends PDO
+class Model extends Database
 {
-    protected static $instance = null;
-    private $config = [];
-    public $db = null;
 
     /**
      * Instansiate a connection to the database.
@@ -20,33 +17,29 @@ class Model extends PDO
      */
     public function __construct()
     {
-        try {
-            $this->config = require_once 'config.php';
-            self::$instance = parent::__construct(
-                "{$this->config['adapter']}:host={$this->config['host']};dbname={$this->config['dbname']};charset={$this->config['encoding']}", 
-                $this->config['user'], 
-                $this->config['pass']);
-            // self::$instance->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                     
-        } catch(PDOException $err) {
-            echo "Connection error: ", $err->getMessage();
-        }
+        $this->db = Database::getInstance();
     }
 
-    /**
-     * Get the database connection.
-     * 
-     * @return Model
-     */
-    public static function getInstance()
+    protected function getAll(string $table, array $fields = ['*'], string $where = '')
     {
-        if(!isset(self::$instance)) {
-            self::$instance = new Model();
+        $sql = "SELECT ";
+        $numOfFields = count($fields) - 1;
+
+        foreach($fields as $key => $field) {
+
+            $sql .= "$field";
+            if($numOfFields != $key) {
+                $sql .= ", ";
+            }
         }
+
+        $sql .= " FROM $table";
         
-        return self::$instance;
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute();
+        
+        $result = $stmt->fetchAll();
+        return $result;
     }
 
-    public function __clone() { }
-    
 }

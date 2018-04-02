@@ -6,15 +6,11 @@ use Gregor\Core\Model;
 
 class CarsModel extends Model
 {
-    public function __construct()
-    {
-        $this->db = Model::getInstance();
-    }
 
     public function index()
     {
-        $stmt = $this->db->query('SELECT * FROM cars');
-        $result = $stmt->fetchALl();
+        $result = $this->getAll('cars');
+        
         return $result;
     }
 
