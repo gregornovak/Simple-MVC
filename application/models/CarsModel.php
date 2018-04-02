@@ -10,17 +10,12 @@ class CarsModel extends Model
     public function index()
     {
         $result = $this->getAll('cars');
-        
         return $result;
     }
 
     public function show(int $id)
     {
-        $stmt = $this->db->prepare('SELECT * FROM cars WHERE id = :id');
-        $stmt->bindParam(':id', $id);
-        $stmt->execute();
-
-        $result = $stmt->fetch();
+        $result = $this->getOne('cars', $id);
         return $result;
     }
 

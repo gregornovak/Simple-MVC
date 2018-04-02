@@ -42,4 +42,27 @@ class Model extends Database
         return $result;
     }
 
+    protected function getOne(string $table, string $id, array $fields = ['*'])
+    {
+        $sql = "SELECT ";
+        $numOfFields = count($fields) - 1;
+
+        foreach($fields as $key => $field) {
+
+            $sql .= "$field";
+            if($numOfFields != $key) {
+                $sql .= ", ";
+            }
+        }
+
+        $sql .= " FROM $table WHERE id = :id";
+
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+
+        $result = $stmt->fetch();
+        return $result;
+    }
+
 }

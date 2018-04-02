@@ -32,6 +32,7 @@ class CarsController extends Controller
     public function show(int $id) : View
     {
         $car = new CarsModel();
+        $id  = $this->request->sanitize($id);
         $car = $car->show($id);
         
         return new View('cars.show', ['car' => $car]);
