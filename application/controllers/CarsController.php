@@ -5,6 +5,7 @@ namespace Gregor\Controllers;
 use Gregor\Core\Controller;
 use Gregor\Core\Request;
 use Gregor\Core\View;
+use Gregor\Core\Session;
 use Gregor\Models\CarsModel;
 
 class CarsController extends Controller
@@ -13,6 +14,7 @@ class CarsController extends Controller
 
     public function __construct()
     {
+        parent::__construct();
         $this->request = new Request;
     }
 
@@ -57,7 +59,7 @@ class CarsController extends Controller
         ]);
 
         if(!$inserted) {
-            echo 'Error inserting data';     
+            Session::flash('Error saving car to database');
         }
 
         header("Location: /cars"); die;
@@ -88,7 +90,7 @@ class CarsController extends Controller
         $id);
 
         if(!$inserted) {
-            echo 'Error updating data';     
+            Session::flash('Error updating car to database');
         }
 
         header("Location: /cars"); die;

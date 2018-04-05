@@ -20,15 +20,7 @@ class Database extends PDO
      */
     public function __construct()
     {
-        $dotenv   = new Dotenv(ROOTDIR);
-        $dotenv->load();
-
-        $adapter  = getenv('ADAPTER');
-        $host     = getenv('HOST');
-        $dbName   = getenv('DB_NAME');
-        $encoding = getenv('ENCODING');
-        $user     = getenv('USERNAME');
-        $pass     = getenv('PASS');
+        [$adapter, $host, $dbName, $encoding, $user, $pass] = $this->getEnvironment(new Dotenv(ROOTDIR));
 
         try {
             self::$instance = parent::__construct(
@@ -43,7 +35,7 @@ class Database extends PDO
      * 
      * @return Database
      */
-    public static function getInstance()
+    public static function getInstance() : Database
     {
         if(!isset(self::$instance)) {
             self::$instance = new Database();
@@ -52,8 +44,29 @@ class Database extends PDO
         return self::$instance;
     }
 
-    public function __clone() { }
+    /**
+     * Get environment variables for database connection.
+     * 
+     * @param Dotenv $dotenv Dotenv instance
+     * @return array Returns array of environment variables
+     */
+    private function getEnvironment(Dotenv $dotenv) : array
+    {
+        try {
 
+            $dotenv->load();
+            $adapter  = getenv('ADAPTER');
+            $host     = getenv('HOST');
+            $dbName   = getenv('DB_NAME');
+            $encoding = getenv('ENCODING');
+            $user     = getenv('USERNAME');
+            $pass     = getenv('PASS');
 
+        } catch(Dotenv\Exception $e) {
+            echo $e->getMessage();
+        }
+
+        return [$adapter, $host, $dbName, $encoding, $user, $pass];
+    }
     
 }

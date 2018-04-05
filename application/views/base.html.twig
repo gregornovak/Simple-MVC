@@ -8,6 +8,11 @@
             <link rel="stylesheet" href="style.css" />
             <title>{% block title %}{% endblock %}</title>
         {% endblock %}
+        <style>
+            .error {
+                color: red;
+            }
+        </style>
     </head>
     <body>
         <div id="nav">
@@ -17,7 +22,12 @@
             <a href="/cars/index">All Cars</a>
             <a href="/cars/add">Add a car</a>            
         </div>
-        <div id="content">{% block content %}{% endblock %}</div>
+        <div id="content">
+            {% if flashMessage %}
+                <p class="error">{{ flashMessage }}</p>
+            {% endif %}
+            {% block content %}{% endblock %}
+        </div>
         <div id="footer">
             {% block footer %}
                 &copy; Copyright {{ year }} by <a href="https://github.com/gregornovak">Gregor</a>.

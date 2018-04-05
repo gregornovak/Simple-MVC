@@ -3,46 +3,20 @@
 namespace Gregor\Core;
 
 use Gregor\Core\Error;
+use Gregor\Core\Session;
 
 
 /**
  * Is used for managing and initializing objects and methods.
  */
-abstract class Controller
+class Controller
 {
-    /** @var string $controllerNamespace Default base namespace */
-    // protected $controllerNamespace = '\Gregor\Controllers';
-    /** @var string $controller Default controller if none is specified */
-    // protected $controller          = 'Index';
-    /** @var string $method Default method if none is specified */
-    // protected $method              = 'index';
-    /** @var null $queryParameter Query parameters is set to null */
-    // protected $queryParameter      = null;
-    /** @var null $db Instance of the database */
-    // protected $db = null;
+    public $session;
 
     public function __construct()
     {
-        // $namespace = $this->getAction($_SERVER['REQUEST_URI']);
-        
-        // if(!class_exists($namespace)) {
-        //     return new Error('errors.not-found', 'This class does not exist!');
-        // }
-
-        // $controller = new $namespace();
-        
-        // if(!method_exists($controller, $this->getMethod())) {
-        //     $class = $this->getController() . 'Controller';
-        //     return new Error('errors.not-found', "This method in class $class does not exist!");
-        // }
-        
-        // if($this->getParam() != null) {
-        //     $controller->{$this->getMethod()}($this->getParam());        
-        // } else {
-        //     $controller->{$this->getMethod()}();
-        // }
+        new Session();
     }
-
     /**
      * Creates the namespace from the provided url.
      * 

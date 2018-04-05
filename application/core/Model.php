@@ -43,6 +43,10 @@ class Model extends Database
         }
 
         $sql .= " FROM $table";
+
+        if(!empty($where)) {
+            $sql .= $where;
+        }
         
         $stmt = $this->db->prepare($sql);
         $stmt->execute();

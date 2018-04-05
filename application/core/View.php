@@ -2,6 +2,8 @@
 
 namespace Gregor\Core;
 
+use Gregor\Core\Session;
+
 /**
  * Returns the required view
  */
@@ -28,7 +30,12 @@ class View
         
         $this->loader = new \Twig_Loader_Filesystem(VIEWS);
         $this->twig = new \Twig_Environment($this->loader);
+        
         $data['year'] = date('Y');
+
+        if(Session::has('flashMessage')) {
+            $data['flashMessage'] = Session::getMessage('flashMessage');
+        }
 
         echo $this->twig->render($this->view, $data);
     }
