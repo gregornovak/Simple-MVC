@@ -60,6 +60,8 @@ class CarsController extends Controller
 
         if(!$inserted) {
             Session::flash('Error saving car to database');
+        } else {
+            Session::flash('Car has been successfully saved.');
         }
 
         header("Location: /cars"); die;
@@ -91,6 +93,8 @@ class CarsController extends Controller
 
         if(!$inserted) {
             Session::flash('Error updating car to database');
+        } else {
+            Session::flash('Car has been successfully saved.');
         }
 
         header("Location: /cars"); die;

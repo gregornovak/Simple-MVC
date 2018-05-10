@@ -66,10 +66,12 @@ class Router
         }
         
         if($this->getParam() != null) {
-            $controller->{$this->getMethod()}($this->getParam());        
+            call_user_func_array([$controller, $this->getMethod()], [$this->getParam()])  ;
         } else {
-            $controller->{$this->getMethod()}();
+            call_user_func([$controller, $this->getMethod()]);
         }
+        
+        return;
     }
 
     public function getController() : string

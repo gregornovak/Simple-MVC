@@ -10,6 +10,8 @@ use Gregor\Core\Database;
 class Model extends Database
 {
 
+    protected $sql;
+    
     /**
      * Instansiate a connection to the database.
      * 
@@ -86,6 +88,32 @@ class Model extends Database
 
         $result = $stmt->fetch();
         return $result;
+    }
+
+    protected function select($fields = ['*'])
+    {
+        $sql = "SELECT ";
+
+    }
+
+    protected function from()
+    {
+
+    }
+
+    protected function where()
+    {
+
+    }
+
+    protected function andWhere()
+    {
+
+    }
+
+    protected function orWhere()
+    {
+
     }
 
 }
